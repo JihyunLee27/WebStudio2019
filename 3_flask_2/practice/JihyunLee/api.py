@@ -72,9 +72,24 @@ class UserList(Resource):
 
 
     def delete(self):
+    # 데이터를 일단 받아온다   
+        r_json = request.get_json()
+        email = r_json['email']
 
-        return 'delete methods'
+    # 등록되어 있으면 유저삭제
+        r = []
+        if os.path.exists('users.json'):
+            with open('users.json','r') as fp:
+                r = json.loads(fp.read())
+        for d in r: 
+            if email == d['email']:
+                r.remove(d)
+                with open('users.json', 'w') as fp:
+                    fp.write(json.dumps(r))
+                return '{} is deleted'.format(email)
 
+     # 등록되어 있지 않은 이메일의 경우- 등록되어 있지 않다고 말한다 
+            return '{} does not exist'.format(email)   
 
 api.add_resource(UserList, '/api/users')
 
