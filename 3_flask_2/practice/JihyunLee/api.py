@@ -68,7 +68,7 @@ class UserList(Resource):
                 return 'email: {}, pw: {}'.format(email, password)
     
      # 등록되어 있지 않은 이메일의 경우- 등록되어 있지 않다고 말한다
-            return '{} does not exist'.format(email)   
+        return '{} does not exist'.format(email)   
 
 
     def delete(self):
@@ -86,10 +86,10 @@ class UserList(Resource):
                 r.remove(d)
                 with open('users.json', 'w') as fp:
                     fp.write(json.dumps(r))
-                return '{} is deleted'.format(email)
+                return '{} is deleted successfully'.format(email)
 
      # 등록되어 있지 않은 이메일의 경우- 등록되어 있지 않다고 말한다 
-            return '{} does not exist'.format(email)   
+        return '{} does not exist'.format(email)   
 
 api.add_resource(UserList, '/api/users')
 
